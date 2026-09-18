@@ -6,6 +6,14 @@ const Button = ({text ,count, setCount}) => {
     )
 }
 
+const StatisticLine = ({text, count}) => {
+    return (
+        <tr>
+            <td>{text}</td> <td>{count}</td>
+        </tr>
+    )
+}
+
 const Statistics = ({goodText, goodCount, 
     neutralText, neutralCount,
     badText, badCount,
@@ -19,26 +27,32 @@ const Statistics = ({goodText, goodCount,
 
     return (
         <div>
-            <p>{goodText} {goodCount}</p>
-            <p>{neutralText} {neutralCount}</p>
-            <p>{badText} {badCount}</p>
-            <p>{allText} {allCount}</p>
+            <table>
+                <StatisticLine text={goodText} count={goodCount}/> 
+                <StatisticLine text={neutralText} count={neutralCount}/>
+                <StatisticLine text={badText} count={badCount}/>
+                <StatisticLine text={allText} count={allCount}/>
+                <Average good={goodCount} bad={badCount} total={allCount} />
+                <PositivePercentage good={goodCount} total={allCount}/>
+            </table>
 
-            <Average good={goodCount} bad={badCount} total={allCount} />
-            <PositivePercentage good={goodCount} total={allCount}/>
         </div>
     )
 }
 
 const Average = ({good, bad, total}) => {
     return (
-        <p>average {total > 0 ? (good - bad) / total : 0}</p>
+        <tr>
+            <td>average</td> <td>{(good - bad) / total}</td>
+        </tr>
     )
 }
 
 const PositivePercentage = ({good, total}) => {
     return (
-        <p>positive {total > 0 ? (good / total) * 100 : 0} %</p>
+        <tr>
+            <td>positive</td> <td>{(good / total) * 100} %</td>
+        </tr>
     )
 }
 
