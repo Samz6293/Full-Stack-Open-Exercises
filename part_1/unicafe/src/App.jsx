@@ -6,21 +6,39 @@ const Button = ({text ,count, setCount}) => {
     )
 }
 
-const Statistics = ({text, count}) => {
+const Statistics = ({goodText, goodCount, 
+    neutralText, neutralCount,
+    badText, badCount,
+    allText, allCount}) => {
+
+    if(allCount === 0) {
+        return (
+            <p>No feedback given</p>
+        )
+    }
+
     return (
-        <p>{text} {count}</p>
+        <div>
+            <p>{goodText} {goodCount}</p>
+            <p>{neutralText} {neutralCount}</p>
+            <p>{badText} {badCount}</p>
+            <p>{allText} {allCount}</p>
+
+            <Average good={goodCount} bad={badCount} total={allCount} />
+            <PositivePercentage good={goodCount} total={allCount}/>
+        </div>
     )
 }
 
 const Average = ({good, bad, total}) => {
     return (
-        <p>average {total>0 ? (good - bad) / total : 0}</p>
+        <p>average {total > 0 ? (good - bad) / total : 0}</p>
     )
 }
 
 const PositivePercentage = ({good, total}) => {
     return (
-        <p>positive {total> 0 ? (good / total) * 100 : 0} %</p>
+        <p>positive {total > 0 ? (good / total) * 100 : 0} %</p>
     )
 }
 
@@ -40,13 +58,11 @@ const App = () => {
 
       <h2>Statistics</h2>
 
-      <Statistics text={"good"} count={good}/>
-      <Statistics text={"neutral"} count={neutral}/>
-      <Statistics text={"bad"} count={bad}/>
-      <Statistics text={"all"} count={good + neutral + bad}/>
+      <Statistics goodText={"good"} goodCount={good}
+       neutralText={"neutral"} neutralCount={neutral}
+       badText={"bad"} badCount={bad}
+       allText={"all"} allCount={good + neutral + bad}/>
 
-      <Average good={good} bad={bad} total={good + neutral + bad} />
-      <PositivePercentage good={good} total={good + neutral + bad}/>
 
     </div>
   )
